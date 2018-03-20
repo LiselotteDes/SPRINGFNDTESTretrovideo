@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+body {
+	background-color: silver;
+	font-family: sans-serif;
+}
+
+h1 {
+	color: teal;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+}
+
+nav ul li {
+	display: inline;
+}
