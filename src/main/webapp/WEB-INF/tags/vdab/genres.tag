@@ -6,15 +6,15 @@
 <header>
 	<nav>
 		<ul>
-			<c:forEach items="${genres}" var="genre">
+			<c:forEach items="${genres}" var="item">
 			<li>
 				<c:choose>
-					<c:when test="${genre.id ne param.id}">
-						<spring:url value="/genres/{id}" var="url"><spring:param name="id" value="${genre.id}"/></spring:url>
-						<a href="${url}">${genre.naam}</a>
+					<c:when test="${genre.id ne item.id}">
+						<spring:url value="/genres/{id}" var="url"><spring:param name="id" value="${item.id}"/></spring:url>
+						<a href="${url}">${item.naam}</a>
 					</c:when>
 					<c:otherwise>
-						${genre.naam}
+						${item.naam}
 					</c:otherwise>
 				</c:choose>
 			</li>
