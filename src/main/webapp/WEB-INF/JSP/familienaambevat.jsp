@@ -9,8 +9,12 @@
 	<vdab:head title="Klanten" />
 </head>
 <body>
-	<vdab:reserverenlink/>
-	<vdab:mandjeklantlinks/>
-	<h1>Klanten</h1>
+	<vdab:navigatie alleLinks="true" h1="Klanten"/>
+	<c:url value="/klanten" var="url"/>
+	<form:form action="${url}" modelAttribute="familienaamBevatForm" method="get">
+		<form:label path="naambevat">Familienaam bevat:</form:label><br>
+		<form:input path="naambevat" autofocus="autofocus"/><form:errors path="naambevat"/><br>
+		<input type="submit" value="Zoeken">
+	</form:form>
 </body>
 </html>

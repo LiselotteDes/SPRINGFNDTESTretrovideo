@@ -9,8 +9,6 @@
 	<vdab:head title="Retro Video"/>
 </head>
 <body>
-	<vdab:reserverenlink/>
-	<h1>Reserveren</h1>
-	<vdab:genres/>
+	<vdab:navigatie alleLinks="false" h1="Reserveren"/>
 </body>
 </html>

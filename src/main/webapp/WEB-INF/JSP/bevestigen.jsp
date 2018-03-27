@@ -9,8 +9,6 @@
 	<vdab:head title="Bevestigen" />
 </head>
 <body>
-	<vdab:reserverenlink/>
-	<vdab:mandjeklantlinks/>
-	<h1>Bevestigen</h1>
+	<vdab:navigatie alleLinks="true" h1="Bevestigen"/>
 </body>
 </html>

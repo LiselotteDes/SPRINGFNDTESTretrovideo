@@ -9,7 +9,6 @@
 	<vdab:head title="Rapport" />
 </head>
 <body>
-	<vdab:reserverenlink/>
-	<h1>Rapport</h1>
+	<vdab:navigatie alleLinks="false" h1="Rapport"/>
 </body>
 </html>

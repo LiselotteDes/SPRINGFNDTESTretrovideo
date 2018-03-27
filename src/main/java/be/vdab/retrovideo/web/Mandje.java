@@ -4,5 +4,7 @@ import java.util.List;
 
 public interface Mandje {
 	void addFilm(long filmid);
-	public List<Long> getFilmids();
+	List<Long> getFilmids();
+	void removeFilms(List<Long> filmids);
+//	BigDecimal getTotaal();
 }

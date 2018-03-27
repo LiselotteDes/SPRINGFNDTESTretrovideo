@@ -32,6 +32,7 @@ class GenreController {
 	ModelAndView film(@PathVariable long filmid) {
 		ModelAndView modelAndView = new ModelAndView(FILM_VIEW);
 		filmService.read(filmid).ifPresent(film -> modelAndView.addObject(film));
+		modelAndView.addObject(new FilmForm(filmid));
 		return modelAndView;
 	}
 }

@@ -9,9 +9,7 @@
 	<vdab:head title="${genre.naam}"/>
 </head>
 <body>
-	<vdab:reserverenlink/>
-	<h1>Reserveren</h1>
-	<vdab:genres/>
+	<vdab:navigatie alleLinks="false" h1="Reserveren"/>
 	<c:if test="${not empty films}">
 		<c:forEach var="film" items="${films}">
 			<spring:url value="/genres/${genre.id}/{id}" var="url">

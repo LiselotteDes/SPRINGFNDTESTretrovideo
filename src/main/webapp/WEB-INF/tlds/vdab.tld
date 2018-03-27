@@ -9,15 +9,7 @@
 		<path>/WEB-INF/tags/vdab/head.tag</path>
 	</tag-file>
 	<tag-file>
-		<name>genres</name>
-		<path>/WEB-INF/tags/vdab/genres.tag</path>
-	</tag-file>
-	<tag-file>
-		<name>reserverenlink</name>
-		<path>/WEB-INF/tags/vdab/reserverenlink.tag</path>
-	</tag-file>
-	<tag-file>
-		<name>mandjeklantlinks</name>
-		<path>/WEB-INF/tags/vdab/mandjeklantlinks.tag</path>
+		<name>navigatie</name>
+		<path>/WEB-INF/tags/vdab/navigatie.tag</path>
 	</tag-file>
 </taglib>

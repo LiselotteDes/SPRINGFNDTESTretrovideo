@@ -9,8 +9,7 @@
 	<vdab:head title="${film.titel}" />
 </head>
 <body>
-	<vdab:reserverenlink />
-	<h1>${film.titel}</h1>
+	<vdab:navigatie alleLinks="false" h1="${film.titel}"/>
 	<img src="/images/${film.id}.jpg" alt="${film.titel}">
 	<dl>
 		<dt>Prijs</dt>
@@ -26,9 +25,10 @@
 	</dl>
 	<c:if test="${film.beschikbaar gt 0}">
 		<c:url value="/mandje" var="url"/>
-		<form method='post' action='${url}'>
+		<form:form method='post' modelAttribute="filmForm" action='${url}'>
+			<form:hidden path="filmid" />
 			<input type='submit' value='In mandje'>
-		</form>
+		</form:form>
 	</c:if>
 </body>
 </html>
