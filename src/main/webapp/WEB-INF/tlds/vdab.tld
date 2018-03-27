@@ -16,4 +16,8 @@
 		<name>reserverenlink</name>
 		<path>/WEB-INF/tags/vdab/reserverenlink.tag</path>
 	</tag-file>
+	<tag-file>
+		<name>mandjeklantlinks</name>
+		<path>/WEB-INF/tags/vdab/mandjeklantlinks.tag</path>
+	</tag-file>
 </taglib>

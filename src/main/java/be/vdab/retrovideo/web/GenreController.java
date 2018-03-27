@@ -15,6 +15,7 @@ class GenreController {
 	private final GenreService genreService;
 	private final FilmService filmService;
 	private final static String GENRE_VIEW = "genre";
+	private final static String FILM_VIEW = "film";
 	GenreController(GenreService genreService, FilmService filmService) {
 		this.genreService = genreService;
 		this.filmService = filmService;
@@ -25,6 +26,12 @@ class GenreController {
 		modelAndView.addObject("genres", genreService.findAll());
 		modelAndView.addObject(genreService.findAll().get(Math.toIntExact(id)-1));
 		modelAndView.addObject("films", filmService.findByGenre(id));
+		return modelAndView;
+	}
+	@GetMapping("{genreid}/{filmid}")
+	ModelAndView film(@PathVariable long filmid) {
+		ModelAndView modelAndView = new ModelAndView(FILM_VIEW);
+		filmService.read(filmid).ifPresent(film -> modelAndView.addObject(film));
 		return modelAndView;
 	}
 }

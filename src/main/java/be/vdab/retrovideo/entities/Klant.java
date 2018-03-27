@@ -35,4 +35,7 @@ public class Klant {
 	public String getGemeente() {
 		return gemeente;
 	}
+	public String getNaam() {
+		return voornaam + ' ' + familienaam;
+	}
 }
