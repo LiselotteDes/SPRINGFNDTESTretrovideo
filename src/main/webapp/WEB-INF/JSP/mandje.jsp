@@ -10,18 +10,6 @@
 </head>
 <body>
 	<vdab:navigatie alleLinks="true" h1="Mandje"/>
-<%-- 	<c:url></c:url> --%>
-<%-- 	<form:form action="${url}" modelAttribute="mandjeForm" method="post"> --%>
-<!-- 		<table> -->
-<!-- 			<thead> -->
-<!-- 				<tr> -->
-<!-- 					<th>Film</th> -->
-<!-- 					<th>Prijs</th> -->
-<!-- 					<th><input type="submit" value="Verwijderen"></th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 		</table> -->
-<%-- 	</form:form> --%>
 
 	<c:if test="${not empty filmsInMandje}">
 		<c:url value="/mandje/verwijderen" var="url"/>

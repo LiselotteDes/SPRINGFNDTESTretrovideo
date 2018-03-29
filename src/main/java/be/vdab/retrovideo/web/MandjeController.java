@@ -48,6 +48,12 @@ class MandjeController {
 //		mandje.addFilmid(form.getFilmid());
 //		return REDIRECT_NA_TOEVOEGEN;
 //	}
+	private final static String REDIRECT_NA_SUBMIT = "redirect:/mandje";
+	@PostMapping
+	String inMandje(MandjeForm form) {
+		mandje.addFilmid(form.getFilmid());
+		return REDIRECT_NA_SUBMIT;
+	}
 	@PostMapping(value="verwijderen", params = "verwijderids")
 	String delete(long[] verwijderids) {
 		if (verwijderids != null) {

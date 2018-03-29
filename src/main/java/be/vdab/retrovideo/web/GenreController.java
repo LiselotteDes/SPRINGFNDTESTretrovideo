@@ -18,7 +18,7 @@ class GenreController {
 	private final Mandje mandje;
 	private final static String GENRE_VIEW = "genre";
 	private final static String FILM_VIEW = "film";
-	private final static String REDIRECT_NA_SUBMIT = "redirect:/mandje";
+//	private final static String REDIRECT_NA_SUBMIT = "redirect:/mandje";
 	GenreController(GenreService genreService, FilmService filmService, Mandje mandje) {
 		this.genreService = genreService;
 		this.filmService = filmService;
@@ -39,9 +39,9 @@ class GenreController {
 		modelAndView.addObject(new MandjeForm(filmid));
 		return modelAndView;
 	}
-	@PostMapping("{genreid}/{filmid}")
-	String inMandje(@PathVariable long filmid) {
-		mandje.addFilmid(filmid);
-		return REDIRECT_NA_SUBMIT;
-	}
+//	@PostMapping("{genreid}/{filmid}")
+//	String inMandje(MandjeForm form) {
+//		mandje.addFilmid(form.getFilmid());
+//		return REDIRECT_NA_SUBMIT;
+//	}
 }
