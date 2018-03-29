@@ -1,12 +1,12 @@
 package be.vdab.retrovideo.web;
 
-class FilmForm {
+class MandjeForm {
 	private long filmid;
 	
-	public FilmForm() {
+	public MandjeForm() {
 	}
 
-	public FilmForm(long filmid) {
+	public MandjeForm(long filmid) {
 		this.filmid = filmid;
 	}
 

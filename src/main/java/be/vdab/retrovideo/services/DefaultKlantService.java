@@ -21,7 +21,7 @@ class DefaultKlantService implements KlantService {
 		return klantRepository.read(id);
 	}
 	@Override
-	public List<Klant> findByBeginFamilienaam(String begin) {
-		return klantRepository.findByBeginFamilienaam(begin);
+	public List<Klant> findByInFamilienaam(String begin) {
+		return klantRepository.findByInFamilienaam(begin);
 	}
 }

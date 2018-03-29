@@ -22,16 +22,18 @@ public class GenreControllerTest {
 	private GenreController genreController;
 	private GenreService dummyGenreService;
 	private FilmService dummyFilmService;
+	private Mandje dummyMandje;
 	private List<Genre> genres;
 	@Before
 	public void before() {
 		this.dummyFilmService = Mockito.mock(FilmService.class);
 		this.dummyGenreService = Mockito.mock(GenreService.class);
+		this.dummyMandje = Mockito.mock(Mandje.class);
 		this.genres = new ArrayList<>();
 		genres.add(new Genre(1, "Test"));
 		Mockito.when(dummyGenreService.findAll()).thenReturn(genres);
 		Mockito.when(dummyFilmService.read(1)).thenReturn(Optional.of(new Film(1, 1, "Test", 1, 0, BigDecimal.ONE)));
-		this.genreController = new GenreController(dummyGenreService, dummyFilmService);
+		this.genreController = new GenreController(dummyGenreService, dummyFilmService, dummyMandje);
 	}
 	@Test
 	public void genreWerktSamenMetJuisteJSP() {

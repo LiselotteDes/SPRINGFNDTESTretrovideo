@@ -33,3 +33,32 @@ dd {
 .image-link {
 	text-decoration: none;
 }
+
+
+th {
+	background: gray;
+	color: white;
+	text-align: left;
+}
+
+.fout {
+	background-color: red;
+	border-bottom-right-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	box-shadow: 5px 5px #777777;
+	margin-left: 0.5em;
+	padding: 0.5em;
+	color: white;
+}
+
+input {
+	display: block;
+	margin-top: 0.2em;
+	margin-bottom: 1em;
+	font-size: 1.1em;
+}
+input[type='checkbox'] {
+	display: inline;
+	margin: 0;
+}

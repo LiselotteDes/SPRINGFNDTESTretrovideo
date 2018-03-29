@@ -7,5 +7,5 @@ import be.vdab.retrovideo.entities.Klant;
 
 public interface KlantRepository {
 	Optional<Klant> read(long id);
-	List<Klant> findByBeginFamilienaam(String begin);
+	List<Klant> findByInFamilienaam(String begin);
 }

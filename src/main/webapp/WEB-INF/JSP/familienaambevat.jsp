@@ -13,8 +13,30 @@
 	<c:url value="/klanten" var="url"/>
 	<form:form action="${url}" modelAttribute="familienaamBevatForm" method="get">
 		<form:label path="naambevat">Familienaam bevat:</form:label><br>
-		<form:input path="naambevat" autofocus="autofocus"/><form:errors path="naambevat"/><br>
-		<input type="submit" value="Zoeken">
+		<form:input path="naambevat" required="required" autofocus="autofocus"/><form:errors path="naambevat" cssClass="fout"/><br>
+		<input type="submit" value="Zoeken"><br>
+		<form:errors cssClass="fout"/>
 	</form:form>
+	<c:if test="${not empty klanten}">
+		<table>
+			<tr>
+				<th>Naam</th>
+				<th>Straat - Huisnummer</th>
+				<th>Postcode</th>
+				<th>Gemeente</th>
+			</tr>
+			<c:forEach items="${klanten }" var="klant">
+				<spring:url var="url" value="/klanten/{id}"><spring:param name="id" value="${klant.id}"/></spring:url>
+				<tr>
+					<td>
+						<a href="${url}"><c:out value="${klant.naam}"/></a>
+					</td>
+					<td>${klant.straatNummer}</td>
+					<td>${klant.postcode}</td>
+					<td>${klant.gemeente}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 </body>
 </html>

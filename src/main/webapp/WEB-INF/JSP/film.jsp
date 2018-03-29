@@ -25,7 +25,7 @@
 	</dl>
 	<c:if test="${film.beschikbaar gt 0}">
 		<c:url value="/mandje" var="url"/>
-		<form:form method='post' modelAttribute="filmForm" action='${url}'>
+		<form:form method='post' modelAttribute="mandjeForm" action='${url}'>
 			<form:hidden path="filmid" />
 			<input type='submit' value='In mandje'>
 		</form:form>

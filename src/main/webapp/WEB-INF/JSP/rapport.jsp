@@ -10,5 +10,6 @@
 </head>
 <body>
 	<vdab:navigatie alleLinks="false" h1="Rapport"/>
+	<p>De reservatie is OK.</p>
 </body>
 </html>

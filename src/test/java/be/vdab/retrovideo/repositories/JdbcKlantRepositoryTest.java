@@ -35,15 +35,15 @@ public class JdbcKlantRepositoryTest {
 		assertEquals("integration", repository.read(hoogsteId).get().getFamilienaam());
 	}
 	@Test
-	public void findByBeginFamilienaamGeeftJuisteKlanten() {
+	public void findByInFamilienaamGeeftJuisteKlanten() {
 		voegKlantToe();
-		repository.findByBeginFamilienaam("int").stream().forEach(klant -> assertTrue(klant.getFamilienaam().startsWith("int")));
+		repository.findByInFamilienaam("int").stream().forEach(klant -> assertTrue(klant.getFamilienaam().startsWith("int")));
 	}
 	@Test
-	public void findByBeginFamilienaamGeeftJuisteAantalKlanten() {
+	public void findByInFamilienaamGeeftJuisteAantalKlanten() {
 		voegKlantToe();
 		long aantalKlanten = template.queryForObject("select count(*) from klanten where familienaam like 'int%'", 
 				Collections.emptyMap(), Long.class);
-		assertEquals(aantalKlanten, repository.findByBeginFamilienaam("int").size());
+		assertEquals(aantalKlanten, repository.findByInFamilienaam("int").size());
 	}
 }

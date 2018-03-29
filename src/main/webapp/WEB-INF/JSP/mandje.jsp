@@ -23,6 +23,28 @@
 <!-- 		</table> -->
 <%-- 	</form:form> --%>
 
-	${mandje.films}
+	<c:if test="${not empty filmsInMandje}">
+		<c:url value="/mandje/verwijderen" var="url"/>
+		<form:form action="${url}" method="post" modelAttribute="mandjeForm">
+		<table>
+			<tr>
+				<th>Film</th>
+				<th>Prijs</th>
+				<th><input type='submit' value='Verwijderen'></th>
+			</tr>
+			<c:forEach items="${filmsInMandje}" var="film">
+				<tr>
+					<td>${film.titel}</td>
+					<td>&euro; <spring:eval expression="film.prijs" /></td>
+					<td><input type="checkbox" name="verwijderids" value="${film.id}"></td>
+				</tr>
+			</c:forEach>
+			<tr>
+				<td>Totaal:</td>
+				<td>&euro; ${totaal}</td>
+			</tr>
+		</table>
+		</form:form>
+	</c:if>
 </body>
 </html>

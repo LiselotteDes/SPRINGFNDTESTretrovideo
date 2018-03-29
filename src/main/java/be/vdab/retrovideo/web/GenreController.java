@@ -3,6 +3,7 @@ package be.vdab.retrovideo.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,11 +15,14 @@ import be.vdab.retrovideo.services.GenreService;
 class GenreController {
 	private final GenreService genreService;
 	private final FilmService filmService;
+	private final Mandje mandje;
 	private final static String GENRE_VIEW = "genre";
 	private final static String FILM_VIEW = "film";
-	GenreController(GenreService genreService, FilmService filmService) {
+	private final static String REDIRECT_NA_SUBMIT = "redirect:/mandje";
+	GenreController(GenreService genreService, FilmService filmService, Mandje mandje) {
 		this.genreService = genreService;
 		this.filmService = filmService;
+		this.mandje = mandje;
 	}
 	@GetMapping("{id}")
 	ModelAndView genre(@PathVariable long id) {
@@ -32,7 +36,12 @@ class GenreController {
 	ModelAndView film(@PathVariable long filmid) {
 		ModelAndView modelAndView = new ModelAndView(FILM_VIEW);
 		filmService.read(filmid).ifPresent(film -> modelAndView.addObject(film));
-		modelAndView.addObject(new FilmForm(filmid));
+		modelAndView.addObject(new MandjeForm(filmid));
 		return modelAndView;
+	}
+	@PostMapping("{genreid}/{filmid}")
+	String inMandje(@PathVariable long filmid) {
+		mandje.addFilmid(filmid);
+		return REDIRECT_NA_SUBMIT;
 	}
 }

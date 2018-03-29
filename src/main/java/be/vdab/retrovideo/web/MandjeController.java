@@ -19,7 +19,7 @@ class MandjeController {
 	private final Mandje mandje;
 	private final FilmService filmService;
 	private static final String MANDJE_VIEW = "mandje";
-	private static final String REDIRECT_NA_TOEVOEGEN = "redirect:/mandje";
+	private static final String REDIRECT_NA_DELETE = "redirect:/mandje";
 	MandjeController(Mandje mandje, FilmService filmService) {
 		this.mandje = mandje;
 		this.filmService = filmService;
@@ -31,20 +31,28 @@ class MandjeController {
 		}
 		return films;
 	}
-	private BigDecimal getTotaal() {
-		List<Film> films = maakFilmsVanIds(mandje.getFilmids());
+	private BigDecimal getTotaal(List<Long> filmids) {
+		List<Film> films = maakFilmsVanIds(filmids);
 		return films.stream().map(film -> film.getPrijs()).reduce(BigDecimal.ZERO, (vorigeSom, prijs) -> vorigeSom.add(prijs));
 	}
 	@GetMapping
 	ModelAndView toonMandje() {
 		ModelAndView modelAndView = new ModelAndView(MANDJE_VIEW);
-		modelAndView.addObject(new FilmForm());
+		modelAndView.addObject(new MandjeForm());
 		modelAndView.addObject("filmsInMandje", maakFilmsVanIds(mandje.getFilmids()));
+		modelAndView.addObject("totaal", getTotaal(mandje.getFilmids()));
 		return modelAndView;
 	}
-	@PostMapping
-	String voegFilmToeAanMandje(FilmForm form) {
-		mandje.addFilm(form.getFilmid());
-		return REDIRECT_NA_TOEVOEGEN;
+//	@PostMapping
+//	String voegFilmToeAanMandje(FilmForm form) {
+//		mandje.addFilmid(form.getFilmid());
+//		return REDIRECT_NA_TOEVOEGEN;
+//	}
+	@PostMapping(value="verwijderen", params = "verwijderids")
+	String delete(long[] verwijderids) {
+		if (verwijderids != null) {
+			mandje.deleteFilmids(verwijderids);
+		}
+		return REDIRECT_NA_DELETE;
 	}
 }

@@ -17,7 +17,7 @@ class JdbcKlantRepository implements KlantRepository {
 	private final RowMapper<Klant> klantRowMapper = (resultSet, rowNum) -> new Klant(resultSet.getLong("id"), resultSet.getString("familienaam"),
 			resultSet.getString("voornaam"), resultSet.getString("straatNummer"), resultSet.getString("postcode"), resultSet.getString("gemeente"));
 	private static final String SQL_READ = "select id, familienaam, voornaam, straatNummer, postcode, gemeente from klanten where id = :id";
-	private static final String SQL_SELECT_BY_BEGIN_NAAM = "select * from klanten where familienaam like :begin";
+	private static final String SQL_SELECT_BY_IN_NAAM = "select * from klanten where familienaam like concat('%',:begin,'%') order by familienaam";
 	JdbcKlantRepository(NamedParameterJdbcTemplate template) {
 		this.template = template;
 	}
@@ -30,7 +30,7 @@ class JdbcKlantRepository implements KlantRepository {
 		}
 	}
 	@Override
-	public List<Klant> findByBeginFamilienaam(String begin) {
-		return template.query(SQL_SELECT_BY_BEGIN_NAAM, Collections.singletonMap("begin", begin + '%'), klantRowMapper);
+	public List<Klant> findByInFamilienaam(String begin) {
+		return template.query(SQL_SELECT_BY_IN_NAAM, Collections.singletonMap("begin", begin), klantRowMapper);
 	}
 }
