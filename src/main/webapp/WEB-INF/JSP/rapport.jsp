@@ -10,6 +10,19 @@
 </head>
 <body>
 	<vdab:navigatie alleLinks="false" h1="Rapport"/>
-	<p>De reservatie is OK.</p>
+	<c:choose>
+		<c:when test="${empty mislukteReservaties}">
+			<p>De reservatie is OK.</p>
+		</c:when>
+		<c:otherwise>
+			<p>Volgende reservaties zijn niet gelukt:</p>
+			<ul>
+			<c:forEach items="${mislukteReservaties}" var="reservatie">
+				<li>${reservatie.titel }</li>
+			</c:forEach>
+			</ul>
+		</c:otherwise>
+	</c:choose>
+	
 </body>
 </html>
