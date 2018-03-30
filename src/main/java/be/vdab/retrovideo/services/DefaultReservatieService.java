@@ -13,17 +13,18 @@ import be.vdab.retrovideo.repositories.ReservatieRepository;
 @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
 class DefaultReservatieService implements ReservatieService {
 	private final ReservatieRepository reservatieRepository;
-	private final FilmRepository filmRepsoitory;
+	private final FilmRepository filmRepository;
 	DefaultReservatieService(ReservatieRepository reservatieRepository, FilmRepository filmRepository) {
 		this.reservatieRepository = reservatieRepository;
-		this.filmRepsoitory = filmRepository;
+		this.filmRepository = filmRepository;
 	}
 	@Override
 	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
 	public void create(Reservatie reservatie) {
-		Film film = filmRepsoitory.read(reservatie.getFilmid()).get();
+		Film film = filmRepository.read(reservatie.getFilmid()).get();
 		if (film.getBeschikbaar() > 0) {
 			reservatieRepository.create(reservatie);
+			filmRepository.updateBijReservatie(film);
 		}
 		else {
 			throw new ReservatieException("Geen film beschikbaar");
