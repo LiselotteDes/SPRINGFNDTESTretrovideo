@@ -1,6 +1,7 @@
 package be.vdab.retrovideo.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -69,6 +70,7 @@ class KlantenController {
 	List<Film> mislukteReservaties = new ArrayList<>();
 	@PostMapping("{id}")
 	ModelAndView bevestigen(@PathVariable long id) {
+		long[] filmTeVerwijderen = new long[1];
 		for (long filmid: mandje.getFilmids()) {
 			Reservatie reservatie = new Reservatie();
 			reservatie.setFilmid(filmid);
@@ -78,8 +80,11 @@ class KlantenController {
 			} catch (ReservatieException ex) {
 				mislukteReservaties.add(filmService.read(filmid).get());
 			}
+			// Film verwijderen uit mandje
+			filmTeVerwijderen[0] = filmid;
+			mandje.deleteFilmids(filmTeVerwijderen);
 		}
-		mandje.deleteFilmids(mandje.getFilmids().toArray());
+		
 		ModelAndView modelAndView = new ModelAndView(REDIRECT_NA_BEVESTIGEN);
 		modelAndView.addObject("mislukteReservaties", mislukteReservaties);
 		return modelAndView;
