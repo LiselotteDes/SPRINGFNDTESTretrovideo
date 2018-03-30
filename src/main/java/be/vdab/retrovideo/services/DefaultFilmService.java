@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import be.vdab.retrovideo.entities.Film;
+import be.vdab.retrovideo.exceptions.ReservatieException;
 import be.vdab.retrovideo.repositories.FilmRepository;
 
 @Service
@@ -19,6 +20,14 @@ class DefaultFilmService implements FilmService {
 	@Override
 	public Optional<Film> read(long id) {
 		return filmRepository.read(id);
+	}
+	@Override
+	public void updateBijReservatie(Film film) {
+		if (film.getBeschikbaar() > 0) {
+			filmRepository.updateBijReservatie(film);
+		} else {
+			throw new ReservatieException("Film is niet beschikbaar");
+		}
 	}
 	@Override
 	public List<Film> findByGenre(long genreid) {
