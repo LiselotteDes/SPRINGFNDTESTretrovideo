@@ -19,6 +19,7 @@ class JdbcFilmRepository implements FilmRepository {
 	private static final String SQL_READ = "select id, genreid, titel, voorraad, gereserveerd, prijs from films where id = :id";
 	private static final String UPDATE_FILMS_BIJ_RESERVATIE = "update films set gereserveerd = gereserveerd+1 where id = :id";
 	private static final String SELECT_BY_GENRE = "select id, genreid, titel, voorraad, gereserveerd, prijs from films where genreid = :genreid";
+	private static final String SELECT_BY_IDS = "select id, genreid, titel, voorraad, gereserveerd, prijs from films where id in (:ids)";
 	
 	JdbcFilmRepository(NamedParameterJdbcTemplate template) {
 		this.template = template;
@@ -39,5 +40,9 @@ class JdbcFilmRepository implements FilmRepository {
 	@Override
 	public List<Film> findByGenre(long genreid) {
 		return template.query(SELECT_BY_GENRE, Collections.singletonMap("genreid", genreid), filmRowMapper);
+	}
+	@Override
+	public List<Film> findByIds(List<Long> ids) {
+		return template.query(SELECT_BY_IDS, Collections.singletonMap("ids", ids), filmRowMapper);
 	}
 }

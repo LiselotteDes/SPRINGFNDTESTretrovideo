@@ -34,4 +34,9 @@ class DefaultFilmService implements FilmService {
 	public List<Film> findByGenre(long genreid) {
 		return filmRepository.findByGenre(genreid);
 	}
+	@Override
+	public List<Film> findByIds(List<Long> ids) {
+		return filmRepository.findByIds(ids);
+	}
+
 }

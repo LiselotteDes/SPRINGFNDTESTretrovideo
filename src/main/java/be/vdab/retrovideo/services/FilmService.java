@@ -9,4 +9,5 @@ public interface FilmService {
 	Optional<Film> read(long id);
 	void updateBijReservatie(Film film);
 	List<Film> findByGenre(long genreid);
+	List<Film> findByIds(List<Long> ids);
 }

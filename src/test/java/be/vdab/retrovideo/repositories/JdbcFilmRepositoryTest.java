@@ -2,7 +2,9 @@ package be.vdab.retrovideo.repositories;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,5 +55,23 @@ public class JdbcFilmRepositoryTest {
 		voegFilmToe();
 		long aantalFilms = template.queryForObject("select count(*) from films where genreid=1", Collections.emptyMap(), Long.class);
 		assertEquals(aantalFilms, repository.findByGenre(1).size());
+	}
+	@Test
+	public void findByIdsGeeftJuisteFilms() {
+		long voorlaatsteId = voegFilmToe();
+		long hoogsteId = voegFilmToe();
+		List<Long> ids = new ArrayList<>();
+		ids.add(voorlaatsteId);
+		ids.add(hoogsteId);
+		repository.findByIds(ids).stream().forEach(film -> assertTrue(ids.contains(film.getId())));
+	}
+	@Test
+	public void findByIdsGeeftJuisteAantalFilms() {
+		long voorlaatsteId = voegFilmToe();
+		long hoogsteId = voegFilmToe();
+		List<Long> ids = new ArrayList<>();
+		ids.add(voorlaatsteId);
+		ids.add(hoogsteId);
+		assertEquals(2, repository.findByIds(ids).size());
 	}
 }

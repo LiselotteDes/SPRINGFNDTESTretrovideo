@@ -25,10 +25,11 @@ class MandjeController {
 		this.filmService = filmService;
 	}
 	private List<Film> maakFilmsVanIds(List<Long> filmids) {
-		List<Film> films = new ArrayList<>(filmids.size());
-		for (long id: filmids) {
-			filmService.read(id).ifPresent(film -> films.add(film));
-		}
+//		List<Film> films = new ArrayList<>(filmids.size());
+//		for (long id: filmids) {
+//			filmService.read(id).ifPresent(film -> films.add(film));
+//		}
+		List<Film> films = filmService.findByIds(filmids);
 		return films;
 	}
 	private BigDecimal getTotaal(List<Long> filmids) {
