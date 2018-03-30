@@ -22,6 +22,7 @@ class DefaultFilmService implements FilmService {
 		return filmRepository.read(id);
 	}
 	@Override
+	@Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
 	public void updateBijReservatie(Film film) {
 		if (film.getBeschikbaar() > 0) {
 			filmRepository.updateBijReservatie(film);
