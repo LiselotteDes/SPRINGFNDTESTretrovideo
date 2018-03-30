@@ -41,7 +41,7 @@ public class JdbcFilmRepositoryTest {
 		Film film = repository.read(hoogsteId).get();
 		repository.updateBijReservatie(film);
 		film = repository.read(hoogsteId).get();
-		assertTrue(film.getVoorraad() == 2 && film.getGereserveerd() == 1);
+		assertTrue(film.getGereserveerd() == 1);
 	}
 	@Test
 	public void findByGenreGeeftJuisteFilms() {

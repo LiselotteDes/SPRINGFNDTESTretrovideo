@@ -37,6 +37,16 @@ class KlantenController {
 		this.mandje = mandje;
 //		this.identificatieKlant = identificatieKlant;
 	}
+	private List<Reservatie> maakReservatiesVanIds(List<Long> filmids, long klantid) {
+		List<Reservatie> reservaties = new ArrayList<>(filmids.size());
+		for (long filmid: filmids) {
+			Reservatie reservatie = new Reservatie();
+			reservatie.setFilmid(filmid);
+			reservatie.setKlantid(klantid);
+			reservaties.add(reservatie);
+		}
+		return reservaties;
+	}
 	private final static String FAMILIENAAM_BEVAT_VIEW = "familienaambevat";
 	@GetMapping
 	ModelAndView familienaamBevat() {
@@ -58,30 +68,28 @@ class KlantenController {
 		return modelAndView;
 	}
 	private final static String BEVESTIGEN_VIEW = "bevestigen";
+	
 	@GetMapping("{id}")
-	ModelAndView identificatieKlant(@PathVariable long id) {
+	ModelAndView bevestigingVragen(@PathVariable long id) {
 //		identificatieKlant.setKlantid(id);
 		ModelAndView modelAndView = new ModelAndView(BEVESTIGEN_VIEW);
 		klantService.read(id).ifPresent(klant -> modelAndView.addObject(klant));
 		modelAndView.addObject("aantalFilms", mandje.getFilmids().size());
 		return modelAndView;
 	}
-	private final static String REDIRECT_NA_BEVESTIGEN = "redirect:rapport";
-	List<Film> mislukteReservaties = new ArrayList<>();
-	@PostMapping("{id}")
-	ModelAndView bevestigen(@PathVariable long id) {
+	private final static String REDIRECT_NA_BEVESTIGEN = "rapport";
+	private List<Film> mislukteReservaties = new ArrayList<>();
+	@GetMapping("{id}/rapport")
+	ModelAndView rapportTonen(@PathVariable long id) {
 		long[] filmTeVerwijderen = new long[1];
-		for (long filmid: mandje.getFilmids()) {
-			Reservatie reservatie = new Reservatie();
-			reservatie.setFilmid(filmid);
-			reservatie.setKlantid(id);
+		for (Reservatie reservatie: maakReservatiesVanIds(mandje.getFilmids(), id)) {
 			try {
 				reservatieService.create(reservatie);
 			} catch (ReservatieException ex) {
-				mislukteReservaties.add(filmService.read(filmid).get());
+				mislukteReservaties.add(filmService.read(reservatie.getFilmid()).get());
 			}
 			// Film verwijderen uit mandje
-			filmTeVerwijderen[0] = filmid;
+			filmTeVerwijderen[0] = reservatie.getFilmid();
 			mandje.deleteFilmids(filmTeVerwijderen);
 		}
 		

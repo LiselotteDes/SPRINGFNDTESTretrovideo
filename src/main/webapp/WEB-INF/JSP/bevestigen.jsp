@@ -12,7 +12,7 @@
 	<vdab:navigatie alleLinks="true" h1="Bevestigen"/>
 	<p>${aantalFilms} film(s) voor ${klant.naam}</p>
 	<c:url value="/klanten/${klant.id}/rapport" var="url"/>
-	<form:form action="${url}" method="post">
+	<form:form action="${url}" method="get">
 		<input type="submit" value="Bevestigen">
 	</form:form>
 </body>
