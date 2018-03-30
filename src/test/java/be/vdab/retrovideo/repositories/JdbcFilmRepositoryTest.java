@@ -1,5 +1,6 @@
 package be.vdab.retrovideo.repositories;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 
@@ -12,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import be.vdab.retrovideo.entities.Film;
 
 @RunWith(SpringRunner.class)
 @JdbcTest
@@ -31,6 +34,14 @@ public class JdbcFilmRepositoryTest {
 	public void read() {
 		long hoogsteId = voegFilmToe();
 		assertEquals("integration test", repository.read(hoogsteId).get().getTitel());
+	}
+	@Test
+	public void updateBijReservatie() {
+		long hoogsteId = voegFilmToe();
+		Film film = repository.read(hoogsteId).get();
+		repository.updateBijReservatie(film);
+		film = repository.read(hoogsteId).get();
+		assertTrue(film.getVoorraad() == 2 && film.getGereserveerd() == 1);
 	}
 	@Test
 	public void findByGenreGeeftJuisteFilms() {

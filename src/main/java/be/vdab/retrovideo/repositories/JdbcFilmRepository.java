@@ -17,6 +17,7 @@ class JdbcFilmRepository implements FilmRepository {
 	private final RowMapper<Film> filmRowMapper = (resultSet, rowNum) -> new Film(resultSet.getLong("id"), resultSet.getLong("genreid"),
 			resultSet.getString("titel"), resultSet.getLong("voorraad"), resultSet.getLong("gereserveerd"), resultSet.getBigDecimal("prijs"));
 	private static final String SQL_READ = "select id, genreid, titel, voorraad, gereserveerd, prijs from films where id = :id";
+	private static final String UPDATE_FILMS_BIJ_RESERVATIE = "update films set voorraad = voorraad-1, gereserveerd = gereserveerd+1 where id = :id";
 	private static final String SELECT_BY_GENRE = "select id, genreid, titel, voorraad, gereserveerd, prijs from films where genreid = :genreid";
 	
 	JdbcFilmRepository(NamedParameterJdbcTemplate template) {
@@ -30,6 +31,10 @@ class JdbcFilmRepository implements FilmRepository {
 		} catch (IncorrectResultSizeDataAccessException ex) {
 			return Optional.empty();
 		}
+	}
+	@Override
+	public void updateBijReservatie(Film film) {
+		template.update(UPDATE_FILMS_BIJ_RESERVATIE, Collections.singletonMap("id", film.getId()));
 	}
 	@Override
 	public List<Film> findByGenre(long genreid) {
