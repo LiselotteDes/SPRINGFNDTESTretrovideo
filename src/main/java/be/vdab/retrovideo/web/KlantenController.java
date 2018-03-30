@@ -77,30 +77,28 @@ class KlantenController {
 		modelAndView.addObject("aantalFilms", mandje.getFilmids().size());
 		return modelAndView;
 	}
-	private final static String REDIRECT_NA_BEVESTIGEN = "rapport";
-	private List<Film> mislukteReservaties = new ArrayList<>();
+	private final static String RAPPORT_VIEW = "rapport";
 	@GetMapping("{id}/rapport")
 	ModelAndView rapportTonen(@PathVariable long id) {
+		ModelAndView modelAndView = new ModelAndView(RAPPORT_VIEW);
+		List<Film> mislukteReservaties = new ArrayList<>();
 		long[] filmTeVerwijderen = new long[1];
-		for (Reservatie reservatie: maakReservatiesVanIds(mandje.getFilmids(), id)) {
-			try {
-				reservatieService.create(reservatie);
-			} catch (ReservatieException ex) {
-				mislukteReservaties.add(filmService.read(reservatie.getFilmid()).get());
+		if (mandje.getFilmids().isEmpty()) {
+			modelAndView.addObject("foutbijleegmandje", true);
+		} else {
+			List<Reservatie> reservaties = maakReservatiesVanIds(mandje.getFilmids(), id);
+			for (Reservatie reservatie: reservaties) {
+				try {
+					reservatieService.create(reservatie);
+				} catch (ReservatieException ex) {
+					mislukteReservaties.add(filmService.read(reservatie.getFilmid()).get());
+				}
+				// Film verwijderen uit mandje
+				filmTeVerwijderen[0] = reservatie.getFilmid();
+				mandje.deleteFilmids(filmTeVerwijderen);
 			}
-			// Film verwijderen uit mandje
-			filmTeVerwijderen[0] = reservatie.getFilmid();
-			mandje.deleteFilmids(filmTeVerwijderen);
+			modelAndView.addObject("mislukteReservaties", mislukteReservaties);
 		}
-		
-		ModelAndView modelAndView = new ModelAndView(REDIRECT_NA_BEVESTIGEN);
-		modelAndView.addObject("mislukteReservaties", mislukteReservaties);
 		return modelAndView;
 	}
-//	private final static String RAPPORT_VIEW = "rapport";
-//	@GetMapping("{id}/rapport")
-//	ModelAndView rapport() {
-//		ModelAndView modelAndView = new ModelAndView(RAPPORT_VIEW);
-//		return modelAndView;
-//	}
 }

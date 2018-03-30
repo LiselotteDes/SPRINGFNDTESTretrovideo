@@ -11,6 +11,9 @@
 <body>
 	<vdab:navigatie alleLinks="false" h1="Rapport"/>
 	<c:choose>
+		<c:when test="${foutbijleegmandje}">
+			<p>Kies een film om een reservatie te maken</p>
+		</c:when>
 		<c:when test="${empty mislukteReservaties}">
 			<p>De reservatie is OK.</p>
 		</c:when>

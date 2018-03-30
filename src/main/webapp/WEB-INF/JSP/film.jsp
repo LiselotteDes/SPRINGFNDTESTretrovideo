@@ -25,10 +25,15 @@
 	</dl>
 	<c:if test="${film.beschikbaar gt 0}">
 		<c:url value="/mandje" var="url"/>
-		<form:form method='post' modelAttribute="mandjeForm" action='${url}'>
+		<form:form method='post' modelAttribute="mandjeForm" action='${url}' id="inmandjeForm">
 			<form:hidden path="filmid" />
-			<input type='submit' value='In mandje'>
+			<input type='submit' value='In mandje' id="inmandjeKnop">
 		</form:form>
 	</c:if>
+	<script>
+		document.getElementById("inmandjeForm").onsubmit = function() {
+			document.getElementById("inmandjeKnop").disabled = true;
+		}
+	</script>
 </body>
 </html>
